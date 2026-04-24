@@ -3,26 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Талгат - 50 лет</title>
+    <title>Батыр Талгат - 50 лет</title>
     <style>
-        body, html { margin: 0; padding: 0; width: 100%; height: 100%; background: #000; overflow: hidden; font-family: Arial, sans-serif; }
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; background: #000; overflow: hidden; font-family: 'Times New Roman', serif; }
         .wrapper { position: relative; width: 100%; max-width: 500px; margin: 0 auto; height: 100vh; background: url('макет.jpg') no-repeat center center; background-size: cover; }
         
-        /* Кнопки управления в верхней части */
         .music-btn { position: absolute; top: 20px; right: 20px; background: rgba(212,175,55,0.4); border: 1px solid #d4af37; border-radius: 50%; width: 40px; height: 40px; color: #d4af37; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 20; }
         .lang-btns { position: absolute; top: 20px; left: 20px; display: flex; gap: 8px; z-index: 20; }
         .lang-btns button { background: rgba(0,0,0,0.6); border: 1px solid #d4af37; color: #fff; padding: 5px 10px; cursor: pointer; border-radius: 5px; font-size: 11px; }
 
-        /* Таймер - максимально низко */
+        .info-box { position: absolute; top: 40%; left: 50%; transform: translateX(-50%); width: 85%; text-align: center; color: #fff; text-shadow: 2px 2px 4px #000; }
+        .info-box h1 { font-size: 24px; color: #d4af37; margin: 0; letter-spacing: 2px; }
+        .info-box p { font-size: 14px; margin: 4px 0; font-weight: bold; }
+
         .timer-box { position: absolute; bottom: 85px; left: 50%; transform: translateX(-50%); width: 100%; text-align: center; color: #fff; }
         .countdown { display: flex; justify-content: center; gap: 8px; }
         .time-item { background: rgba(0,0,0,0.7); padding: 5px; border-radius: 5px; min-width: 42px; border: 1px solid #d4af37; }
-        .time-num { font-size: 18px; font-weight: bold; display: block; color: #fff; line-height: 1.2; }
+        .time-num { font-size: 18px; font-weight: bold; display: block; }
         .time-text { font-size: 8px; color: #d4af37; text-transform: uppercase; }
-        .timer-label { color: #d4af37; font-size: 10px; margin-bottom: 4px; font-weight: bold; letter-spacing: 1px; }
 
-        /* Кнопка WhatsApp в самом низу */
-        .wa-btn { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); width: 80%; background: linear-gradient(45deg, #d4af37, #f9f0b5); padding: 12px; text-align: center; border-radius: 25px; text-decoration: none; color: #000; font-weight: bold; font-size: 13px; z-index: 10; box-shadow: 0 4px 15px rgba(0,0,0,0.6); }
+        .wa-btn { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); width: 80%; background: linear-gradient(45deg, #d4af37, #f9f0b5); padding: 12px; text-align: center; border-radius: 25px; text-decoration: none; color: #000; font-weight: bold; font-size: 13px; z-index: 10; cursor: pointer; border: none; }
+        
+        /* Выбор ответа */
+        #rsvp-options { display: none; position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%); width: 80%; background: rgba(0,0,0,0.95); border: 1px solid #d4af37; border-radius: 15px; padding: 15px; z-index: 100; text-align: center; box-shadow: 0 0 20px rgba(212,175,55,0.3); }
+        .opt-btn { width: 100%; margin-bottom: 8px; padding: 10px; border-radius: 5px; border: none; background: #d4af37; color: #000; font-weight: bold; cursor: pointer; font-size: 12px; }
+        .opt-close { background: #555 !important; color: #fff !important; margin-bottom: 0; }
     </style>
 </head>
 <body>
@@ -33,47 +38,10 @@
         </div>
         <div class="music-btn" onclick="toggleMusic()">♪</div>
 
-        <div class="timer-box">
-            <div id="t-title" class="timer-label">ТОЙҒА ДЕЙІН ҚАЛДЫ:</div>
-            <div class="countdown">
-                <div class="time-item"><span class="time-num" id="days">00</span><span id="t-d" class="time-text">күн</span></div>
-                <div class="time-item"><span class="time-num" id="hours">00</span><span id="t-h" class="time-text">сағат</span></div>
-                <div class="time-item"><span class="time-num" id="mins">00</span><span id="t-m" class="time-text">мин</span></div>
-                <div class="time-item"><span class="time-num" id="secs">00</span><span id="t-s" class="time-text">сек</span></div>
-            </div>
-        </div>
-
-        <a href="https://wa.me/77015201111?text=Сәлеметсіз бе! Мерейтойға келетінімді растаймын." class="wa-btn" id="wa-text">ҚАТЫСУЫҢЫЗДЫ РАСТАУ</a>
-    </div>
-
-    <audio id="bgMusic" loop><source src="music.mp3" type="audio/mpeg"></audio>
-
-    <script>
-        const music = document.getElementById('bgMusic');
-        function toggleMusic() { music.paused ? music.play() : music.pause(); }
-        
-        function changeLang(lang) {
-            const t = {
-                ru: { title: "ДО ТОЯ ОСТАЛОСЬ:", d: "дн", h: "час", m: "мин", s: "сек", btn: "ПОДТВЕРДИТЬ ПРИСУТСТВИЕ" },
-                kz: { title: "ТОЙҒА ДЕЙІН ҚАЛДЫ:", d: "күн", h: "сағат", m: "мин", s: "сек", btn: "ҚАТЫСУЫҢЫЗДЫ РАСТАУ" }
-            };
-            document.getElementById('t-title').innerText = t[lang].title;
-            document.getElementById('t-d').innerText = t[lang].d; document.getElementById('t-h').innerText = t[lang].h;
-            document.getElementById('t-m').innerText = t[lang].m; document.getElementById('t-s').innerText = t[lang].s;
-            document.getElementById('wa-text').innerText = t[lang].btn;
-        }
-
-        const eventDate = new Date("June 14, 2026 16:00:00").getTime();
-        setInterval(() => {
-            const diff = eventDate - new Date().getTime();
-            if (diff > 0) {
-                document.getElementById('days').innerText = Math.floor(diff / 86400000);
-                document.getElementById('hours').innerText = Math.floor((diff % 86400000) / 3600000);
-                document.getElementById('mins').innerText = Math.floor((diff % 3600000) / 60000);
-                document.getElementById('secs').innerText = Math.floor((diff % 60000) / 1000);
-            }
-        }, 1000);
-    </script>
-</body>
-</html>
-    
+        <div class="info-box">
+            <h1 id="m-name">БАТЫР ТАЛҒАТ</h1>
+            <p id="m-event" style="font-size:20px; color:#d4af37;">50 ЖАС</p>
+            <p id="m-date">14 МАУСЫМ, 2026 ЖЫЛ</p>
+            <p id="m-time">УАҚЫТЫ: 18:30</p>
+            <p id="m-addr">"ХАН ТАЛАПАЙ" МЕЙРАМХАНАСЫ</p>
+            <p id="m-street" style="font-size:10px;">Қор
