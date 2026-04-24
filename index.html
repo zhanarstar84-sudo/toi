@@ -24,10 +24,9 @@
 
         .wa-btn { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); width: 80%; background: linear-gradient(45deg, #d4af37, #f9f0b5); padding: 12px; text-align: center; border-radius: 25px; text-decoration: none; color: #000; font-weight: bold; font-size: 13px; z-index: 10; cursor: pointer; border: none; }
         
-        /* Выбор ответа */
         #rsvp-options { display: none; position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%); width: 80%; background: rgba(0,0,0,0.95); border: 1px solid #d4af37; border-radius: 15px; padding: 15px; z-index: 100; text-align: center; box-shadow: 0 0 20px rgba(212,175,55,0.3); }
         .opt-btn { width: 100%; margin-bottom: 8px; padding: 10px; border-radius: 5px; border: none; background: #d4af37; color: #000; font-weight: bold; cursor: pointer; font-size: 12px; }
-        .opt-close { background: #555 !important; color: #fff !important; margin-bottom: 0; }
+        .opt-close { background: #555 !important; color: #fff !important; }
     </style>
 </head>
 <body>
@@ -42,6 +41,62 @@
             <h1 id="m-name">БАТЫР ТАЛҒАТ</h1>
             <p id="m-event" style="font-size:20px; color:#d4af37;">50 ЖАС</p>
             <p id="m-date">14 МАУСЫМ, 2026 ЖЫЛ</p>
-            <p id="m-time">УАҚЫТЫ: 18:30</p>
+            <p id="m-time">УАҚЫТЫ: 16:00</p>
             <p id="m-addr">"ХАН ТАЛАПАЙ" МЕЙРАМХАНАСЫ</p>
-            <p id="m-street" style="font-size:10px;">Қор
+            <p id="m-street" style="font-size:10px;">Қорғалжын тас жолы, 20-й ғимарат</p>
+        </div>
+
+        <div id="rsvp-options">
+            <p style="color:#d4af37; margin-bottom:10px; font-size:13px;" id="rsvp-title">Жауапты таңдаңыз / Выберите ответ:</p>
+            <button class="opt-btn" onclick="sendWA('Приду / Келемін')">Приду / Келемін</button>
+            <button class="opt-btn" onclick="sendWA('Приду с супругой(ом) / Жұбайыммен келемін')">Приду с супругой(ом) / Жұбайыммен келемін</button>
+            <button class="opt-btn" onclick="sendWA('Не смогу прийти / Келе алмаймын')">Не смогу прийти / Келе алмаймын</button>
+            <button class="opt-btn opt-close" onclick="document.getElementById('rsvp-options').style.display='none'">← Артқа / Назад</button>
+        </div>
+
+        <button onclick="document.getElementById('rsvp-options').style.display='block'" class="wa-btn" id="wa-text">ҚАТЫСУЫҢЫЗДЫ РАСТАУ</button>
+    </div>
+
+    <audio id="bgMusic" loop><source src="music.mp3" type="audio/mpeg"></audio>
+
+    <script>
+        const music = document.getElementById('bgMusic');
+        function toggleMusic() { music.paused ? music.play() : music.pause(); }
+        
+        function sendWA(answer) {
+            const phone = "77015201111";
+            const text = encodeURIComponent("Сәлеметсіз бе! Жауабым: " + answer);
+            window.location.href = "https://wa.me/" + phone + "?text=" + text;
+        }
+
+        function changeLang(lang) {
+            const t = {
+                ru: { name: "БАТЫР ТАЛГАТ", ev: "50 ЛЕТ", date: "14 ИЮНЯ, 2026 ГОД", time: "ВРЕМЯ: 16:00", addr: "РЕСТОРАН 'ХАН ТАЛАПАЙ'", street: "Кургальжинское шоссе, 20-й корпус", title: "ДО ТОЯ ОСТАЛОСЬ:", d: "дн", h: "час", m: "мин", s: "сек", btn: "ПОДТВЕРДИТЬ ПРИСУТСТВИЕ" },
+                kz: { name: "БАТЫР ТАЛҒАТ", ev: "50 ЖАС", date: "14 МАУСЫМ, 2026 ЖЫЛ", time: "УАҚЫТЫ: 16:00", addr: " 'ХАН ТАЛАПАЙ' МЕЙРАМХАНАСЫ", street: "Қорғалжын тас жолы, 20-й ғимарат", title: "ТОЙҒА ДЕЙІН ҚАЛДЫ:", d: "күн", h: "сағат", m: "мин", s: "сек", btn: "ҚАТЫСУЫҢЫЗДЫ РАСТАУ" }
+            };
+            document.getElementById('m-name').innerText = t[lang].name;
+            document.getElementById('m-event').innerText = t[lang].ev;
+            document.getElementById('m-date').innerText = t[lang].date;
+            document.getElementById('m-time').innerText = t[lang].time;
+            document.getElementById('m-addr').innerText = t[lang].addr;
+            document.getElementById('m-street').innerText = t[lang].street;
+            document.getElementById('t-title').innerText = t[lang].title;
+            document.getElementById('t-d').innerText = t[lang].d; document.getElementById('t-h').innerText = t[lang].h;
+            document.getElementById('t-m').innerText = t[lang].m; document.getElementById('t-s').innerText = t[lang].s;
+            document.getElementById('wa-text').innerText = t[lang].btn;
+        }
+
+        // Обновлено время на 16:00
+        const eventDate = new Date("June 14, 2026 16:00:00").getTime();
+        setInterval(() => {
+            const diff = eventDate - new Date().getTime();
+            if (diff > 0) {
+                document.getElementById('days').innerText = Math.floor(diff / 86400000);
+                document.getElementById('hours').innerText = Math.floor((diff % 86400000) / 3600000);
+                document.getElementById('mins').innerText = Math.floor((diff % 3600000) / 60000);
+                document.getElementById('secs').innerText = Math.floor((diff % 60000) / 1000);
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
