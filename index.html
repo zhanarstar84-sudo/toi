@@ -1,99 +1,138 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="kk">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Батыр Талгат - 50 лет</title>
+    <title>Талғат 50 жас</title>
     <style>
-        body, html { margin: 0; padding: 0; width: 100%; height: 100%; background: #000; overflow: hidden; font-family: 'Times New Roman', serif; }
-        .wrapper { position: relative; width: 100%; max-width: 500px; margin: 0 auto; height: 100vh; background: url('макет.jpg') no-repeat center center; background-size: cover; }
+        :root { --gold: #d4af37; --dark: #1a1a1a; }
+        body, html { margin: 0; padding: 0; background: var(--dark); color: #fff; font-family: 'Times New Roman', serif; scroll-behavior: smooth; overflow-x: hidden; }
         
-        .music-btn { position: absolute; top: 20px; right: 20px; background: rgba(212,175,55,0.4); border: 1px solid #d4af37; border-radius: 50%; width: 40px; height: 40px; color: #d4af37; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 20; }
-        .lang-btns { position: absolute; top: 20px; left: 20px; display: flex; gap: 8px; z-index: 20; }
-        .lang-btns button { background: rgba(0,0,0,0.6); border: 1px solid #d4af37; color: #fff; padding: 5px 10px; cursor: pointer; border-radius: 5px; font-size: 11px; }
+        /* Секции сайта */
+        section { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; padding: 20px; box-sizing: border-box; text-align: center; }
 
-        .info-box { position: absolute; top: 40%; left: 50%; transform: translateX(-50%); width: 85%; text-align: center; color: #fff; text-shadow: 2px 2px 4px #000; }
-        .info-box h1 { font-size: 24px; color: #d4af37; margin: 0; letter-spacing: 2px; }
-        .info-box p { font-size: 14px; margin: 4px 0; font-weight: bold; }
+        /* Первый экран - Фото */
+        #hero { background: url('макет.jpg') no-repeat center center; background-size: cover; }
+        .overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); }
+        .hero-content { z-index: 2; }
+        .hero-content h1 { font-size: 3rem; color: var(--gold); text-shadow: 2px 2px 10px #000; margin-bottom: 10px; }
 
-        .timer-box { position: absolute; bottom: 85px; left: 50%; transform: translateX(-50%); width: 100%; text-align: center; color: #fff; }
-        .countdown { display: flex; justify-content: center; gap: 8px; }
-        .time-item { background: rgba(0,0,0,0.7); padding: 5px; border-radius: 5px; min-width: 42px; border: 1px solid #d4af37; }
-        .time-num { font-size: 18px; font-weight: bold; display: block; }
-        .time-text { font-size: 8px; color: #d4af37; text-transform: uppercase; }
+        /* Кнопки управления */
+        .controls { position: fixed; top: 20px; width: 100%; display: flex; justify-content: space-between; padding: 0 20px; box-sizing: border-box; z-index: 100; }
+        .lang-btns button, .music-btn { background: rgba(0,0,0,0.6); border: 1px solid var(--gold); color: #fff; padding: 8px 12px; cursor: pointer; border-radius: 5px; }
 
-        .wa-btn { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); width: 80%; background: linear-gradient(45deg, #d4af37, #f9f0b5); padding: 12px; text-align: center; border-radius: 25px; text-decoration: none; color: #000; font-weight: bold; font-size: 13px; z-index: 10; cursor: pointer; border: none; }
-        
-        #rsvp-options { display: none; position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%); width: 80%; background: rgba(0,0,0,0.95); border: 1px solid #d4af37; border-radius: 15px; padding: 15px; z-index: 100; text-align: center; box-shadow: 0 0 20px rgba(212,175,55,0.3); }
-        .opt-btn { width: 100%; margin-bottom: 8px; padding: 10px; border-radius: 5px; border: none; background: #d4af37; color: #000; font-weight: bold; cursor: pointer; font-size: 12px; }
-        .opt-close { background: #555 !important; color: #fff !important; }
+        /* Второй экран - Текст с орнаментами */
+        #details { background: #fdf5e6; color: #333; position: relative; }
+        #details::before { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: url('https://www.transparenttextures.com/patterns/p6-dark.png'); opacity: 0.1; }
+        .ornament { width: 100px; margin: 20px 0; filter: sepia(1) saturate(5); }
+
+        /* Календарь */
+        .calendar { border: 2px solid var(--gold); padding: 15px; border-radius: 10px; background: #fff; color: #000; margin: 20px 0; }
+        .calendar-header { font-weight: bold; border-bottom: 1px solid #ccc; margin-bottom: 10px; padding-bottom: 5px; }
+        .highlight { background: var(--gold); color: #fff; border-radius: 50%; padding: 5px 8px; font-weight: bold; }
+
+        /* Кнопки 2GIS и подтверждения */
+        .btn-gold { background: linear-gradient(45deg, #d4af37, #f9f0b5); color: #000; padding: 15px 30px; border-radius: 30px; text-decoration: none; font-weight: bold; display: inline-block; margin-top: 15px; border: none; cursor: pointer; }
+
+        /* Таймер */
+        .timer { display: flex; gap: 10px; margin: 20px 0; }
+        .time-box { background: var(--gold); color: #000; padding: 10px; border-radius: 5px; min-width: 50px; }
+        .time-box span { display: block; font-size: 20px; font-weight: bold; }
+
+        /* Опросник */
+        .rsvp-menu { display: flex; flex-direction: column; gap: 10px; width: 100%; max-width: 300px; }
     </style>
 </head>
 <body>
-    <div class="wrapper">
+
+    <div class="controls">
         <div class="lang-btns">
             <button onclick="changeLang('kz')">ҚАЗ</button>
             <button onclick="changeLang('ru')">РУС</button>
         </div>
-        <div class="music-btn" onclick="toggleMusic()">♪</div>
-
-        <div class="info-box">
-            <h1 id="m-name">БАТЫР ТАЛҒАТ</h1>
-            <p id="m-event" style="font-size:20px; color:#d4af37;">50 ЖАС</p>
-            <p id="m-date">14 МАУСЫМ, 2026 ЖЫЛ</p>
-            <p id="m-time">УАҚЫТЫ: 16:00</p>
-            <p id="m-addr">"ХАН ТАЛАПАЙ" МЕЙРАМХАНАСЫ</p>
-            <p id="m-street" style="font-size:10px;">Қорғалжын тас жолы, 20-й ғимарат</p>
-        </div>
-
-        <div id="rsvp-options">
-            <p style="color:#d4af37; margin-bottom:10px; font-size:13px;" id="rsvp-title">Жауапты таңдаңыз / Выберите ответ:</p>
-            <button class="opt-btn" onclick="sendWA('Приду / Келемін')">Приду / Келемін</button>
-            <button class="opt-btn" onclick="sendWA('Приду с супругой(ом) / Жұбайыммен келемін')">Приду с супругой(ом) / Жұбайыммен келемін</button>
-            <button class="opt-btn" onclick="sendWA('Не смогу прийти / Келе алмаймын')">Не смогу прийти / Келе алмаймын</button>
-            <button class="opt-btn opt-close" onclick="document.getElementById('rsvp-options').style.display='none'">← Артқа / Назад</button>
-        </div>
-
-        <button onclick="document.getElementById('rsvp-options').style.display='block'" class="wa-btn" id="wa-text">ҚАТЫСУЫҢЫЗДЫ РАСТАУ</button>
+        <button class="music-btn" onclick="toggleMusic()">♪ Музыка</button>
     </div>
+
+    <section id="hero">
+        <div class="overlay"></div>
+        <div class="hero-content">
+            <h1 id="h-title">ТАЛҒАТ 50 ЖАС</h1>
+            <p id="h-scroll" style="color: white;">Скролл төмен ↓</p>
+        </div>
+    </section>
+
+    <section id="details">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Kazakh_ornament.svg/512px-Kazakh_ornament.svg.png" class="ornament" alt="ornament">
+        <h2 id="m-invite">ҚҰРМЕТТІ ҚОНАҚТАР!</h2>
+        <p id="m-text">Сіздерді Талғаттың мерейтойына арналған салтанатты дастарханымыздың қадірлі қонағы болуға шақырамыз!</p>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Kazakh_ornament.svg/512px-Kazakh_ornament.svg.png" class="ornament" style="transform: rotate(180deg);" alt="ornament">
+    </section>
+
+    <section id="info">
+        <h2 id="m-when">ҚАШАН ЖӘНЕ ҚАЙДА?</h2>
+        
+        <div class="calendar">
+            <div class="calendar-header">ИЮНЬ / МАУСЫМ 2026</div>
+            <table style="width: 100%;">
+                <tr><td>Пн</td><td>Вт</td><td>Ср</td><td>Чт</td><td>Пт</td><td>Сб</td><td style="color:red">Вс</td></tr>
+                <tr><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td style="color:red">7</td></tr>
+                <tr><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td><td>13</td><td class="highlight">14</td></tr>
+            </table>
+        </div>
+        
+        <p id="m-time">Басталуы: 16:00</p>
+        <p id="m-addr"><b>"Хан Талапай" мейрамханасы</b><br>Астана қ., Қорғалжын тас жолы, 20</p>
+        <a href="https://2gis.kz/astana/search/%D0%A5%D0%B0%D0%BD%20%D0%A2%D0%B0%D0%BB%D0%B0%D0%BF%D0%B0%D0%B9%20%D0%9A%D0%BE%D1%80%D0%B3%D0%B0%D0%BB%D0%B6%D1%8B%D0%BD%2020" target="_blank" class="btn-gold">2GIS КАРТА</a>
+
+        <div id="t-title" style="margin-top:40px; color:var(--gold);">ТОЙҒА ДЕЙІН ҚАЛДЫ:</div>
+        <div class="timer">
+            <div class="time-box"><span id="days">00</span>күн</div>
+            <div class="time-box"><span id="hours">00</span>сағат</div>
+            <div class="time-box"><span id="mins">00</span>мин</div>
+        </div>
+
+        <h3 id="m-rsvp" style="margin-top:40px;">КЕЛЕТІНІҢІЗДІ РАСТАҢЫЗ:</h3>
+        <div class="rsvp-menu">
+            <button class="btn-gold" onclick="sendWA('Приду / Келемін')">Келемін</button>
+            <button class="btn-gold" onclick="sendWA('Буду с супругой(ом) / Жұбайыммен келемін')">Жұбайыммен келемін</button>
+            <button class="btn-gold" style="background:#555; color:#fff;" onclick="sendWA('Не смогу прийти / Келе алмаймын')">Өкінішке орай, келе алмаймын</button>
+        </div>
+    </section>
 
     <audio id="bgMusic" loop><source src="music.mp3" type="audio/mpeg"></audio>
 
     <script>
         const music = document.getElementById('bgMusic');
         function toggleMusic() { music.paused ? music.play() : music.pause(); }
-        
-        function sendWA(answer) {
-            const phone = "77015201111";
-            const text = encodeURIComponent("Сәлеметсіз бе! Жауабым: " + answer);
-            window.location.href = "https://wa.me/" + phone + "?text=" + text;
+
+        function sendWA(ans) {
+            const phone = "77015201111"; // Твой номер
+            window.location.href = `https://wa.me/${phone}?text=${encodeURIComponent("Сәлеметсіз бе! Жауабым: " + ans)}`;
         }
 
-        function changeLang(lang) {
+        function changeLang(l) {
             const t = {
-                ru: { name: "БАТЫР ТАЛГАТ", ev: "50 ЛЕТ", date: "14 ИЮНЯ, 2026 ГОД", time: "ВРЕМЯ: 16:00", addr: "РЕСТОРАН 'ХАН ТАЛАПАЙ'", street: "Кургальжинское шоссе, 20-й корпус", title: "ДО ТОЯ ОСТАЛОСЬ:", d: "дн", h: "час", m: "мин", s: "сек", btn: "ПОДТВЕРДИТЬ ПРИСУТСТВИЕ" },
-                kz: { name: "БАТЫР ТАЛҒАТ", ev: "50 ЖАС", date: "14 МАУСЫМ, 2026 ЖЫЛ", time: "УАҚЫТЫ: 16:00", addr: " 'ХАН ТАЛАПАЙ' МЕЙРАМХАНАСЫ", street: "Қорғалжын тас жолы, 20-й ғимарат", title: "ТОЙҒА ДЕЙІН ҚАЛДЫ:", d: "күн", h: "сағат", m: "мин", s: "сек", btn: "ҚАТЫСУЫҢЫЗДЫ РАСТАУ" }
+                ru: { title: "ТАЛГАТ 50 ЛЕТ", scroll: "Скролл вниз ↓", invite: "ДОРОГИЕ ГОСТИ!", text: "Приглашаем вас стать почетными гостями торжественного вечера, посвященного 50-летию Талгата!", when: "КОГДА И ГДЕ?", time: "Начало: 16:00", rsvp: "ПОДТВЕРДИТЕ ПРИСУТСТВИЕ:", cd: "ДО ТОЯ ОСТАЛОСЬ:" },
+                kz: { title: "ТАЛҒАТ 50 ЖАС", scroll: "Скролл төмен ↓", invite: "ҚҰРМЕТТІ ҚОНАҚТАР!", text: "Сіздерді Талғаттың мерейтойына арналған салтанатты дастарханымыздың қадірлі қонағы болуға шақырамыз!", when: "ҚАШАН ЖӘНЕ ҚАЙДА?", time: "Басталуы: 16:00", rsvp: "КЕЛЕТІНІҢІЗДІ РАСТАҢЫЗ:", cd: "ТОЙҒА ДЕЙІН ҚАЛДЫ:" }
             };
-            document.getElementById('m-name').innerText = t[lang].name;
-            document.getElementById('m-event').innerText = t[lang].ev;
-            document.getElementById('m-date').innerText = t[lang].date;
-            document.getElementById('m-time').innerText = t[lang].time;
-            document.getElementById('m-addr').innerText = t[lang].addr;
-            document.getElementById('m-street').innerText = t[lang].street;
-            document.getElementById('t-title').innerText = t[lang].title;
-            document.getElementById('t-d').innerText = t[lang].d; document.getElementById('t-h').innerText = t[lang].h;
-            document.getElementById('t-m').innerText = t[lang].m; document.getElementById('t-s').innerText = t[lang].s;
-            document.getElementById('wa-text').innerText = t[lang].btn;
+            document.getElementById('h-title').innerText = t[l].title;
+            document.getElementById('h-scroll').innerText = t[l].scroll;
+            document.getElementById('m-invite').innerText = t[l].invite;
+            document.getElementById('m-text').innerText = t[l].text;
+            document.getElementById('m-when').innerText = t[l].when;
+            document.getElementById('m-time').innerText = t[l].time;
+            document.getElementById('m-rsvp').innerText = t[l].rsvp;
+            document.getElementById('t-title').innerText = t[l].cd;
         }
 
         const eventDate = new Date("June 14, 2026 16:00:00").getTime();
         setInterval(() => {
-            const diff = eventDate - new Date().getTime();
+            const now = new Date().getTime();
+            const diff = eventDate - now;
             if (diff > 0) {
-                document.getElementById('days').innerText = Math.floor(diff / 86400000);
-                document.getElementById('hours').innerText = Math.floor((diff % 86400000) / 3600000);
-                document.getElementById('mins').innerText = Math.floor((diff % 3600000) / 60000);
-                document.getElementById('secs').innerText = Math.floor((diff % 60000) / 1000);
+                document.getElementById('days').innerText = Math.floor(diff / (1000 * 60 * 60 * 24));
+                document.getElementById('hours').innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                document.getElementById('mins').innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
             }
         }, 1000);
     </script>
