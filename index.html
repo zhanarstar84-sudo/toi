@@ -12,42 +12,42 @@
 
         /* Первый экран */
         #hero { 
-            background: url('макет.jpg') no-repeat center center; 
+            background: #000 url('макет.jpg') no-repeat center center; 
             background-size: cover; 
             display: flex;
-            align-items: flex-end; /* Спускаем текст вниз */
+            align-items: flex-end; 
             padding-bottom: 80px;
         }
         .overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.3); }
         
         .hero-content { z-index: 2; width: 100%; }
-        .hero-content h1 { font-size: 2.5rem; color: var(--gold); text-shadow: 2px 2px 10px #000; margin: 0; line-height: 1.2; }
+        .hero-content h1 { font-size: 2.5rem; color: var(--gold); text-shadow: 2px 2px 10px #000; margin: 0; line-height: 1.2; font-weight: bold; }
         .hero-content span { display: block; font-size: 2rem; }
 
-        /* Анимированная стрелка */
         .arrow { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 5; animation: bounce 2s infinite; cursor: pointer; }
         @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0) translateX(-50%);} 40% {transform: translateY(-10px) translateX(-50%);} 60% {transform: translateY(-5px) translateX(-50%);} }
 
         .controls { position: fixed; top: 20px; width: 100%; display: flex; justify-content: space-between; padding: 0 20px; box-sizing: border-box; z-index: 100; }
-        .lang-btns button, .music-btn { background: rgba(0,0,0,0.6); border: 1px solid var(--gold); color: #fff; padding: 8px 12px; cursor: pointer; border-radius: 5px; font-size: 12px; }
+        .lang-btns button, .music-btn { background: rgba(0,0,0,0.7); border: 1px solid var(--gold); color: #fff; padding: 8px 12px; cursor: pointer; border-radius: 5px; font-size: 12px; }
 
         /* Второй экран */
         #details { background: #fdf5e6; color: #333; }
-        .ornament { width: 120px; margin: 20px 0; filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3)); }
+        .ornament-img { width: 150px; height: auto; margin: 20px 0; opacity: 0.8; }
 
         /* Календарь */
-        .calendar { border: 2px solid var(--gold); padding: 15px; border-radius: 10px; background: #fff; color: #000; margin: 20px 0; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .calendar { border: 2px solid var(--gold); padding: 15px; border-radius: 10px; background: #fff; color: #000; margin: 20px 0; box-shadow: 0 4px 10px rgba(0,0,0,0.1); width: 280px; }
         .calendar-header { font-weight: bold; border-bottom: 1px solid #ccc; margin-bottom: 10px; padding-bottom: 5px; color: var(--gold); }
-        .highlight { background: var(--gold); color: #fff; border-radius: 50%; padding: 5px 8px; font-weight: bold; }
+        .highlight { background: var(--gold); color: #fff; border-radius: 50%; width: 25px; height: 25px; display: inline-flex; align-items: center; justify-content: center; font-weight: bold; }
 
-        .btn-gold { background: linear-gradient(45deg, #d4af37, #f9f0b5); color: #000; padding: 15px 30px; border-radius: 30px; text-decoration: none; font-weight: bold; display: inline-block; margin-top: 15px; border: none; cursor: pointer; width: 80%; max-width: 280px; }
+        .btn-gold { background: linear-gradient(45deg, #d4af37, #f9f0b5); color: #000; padding: 15px 25px; border-radius: 30px; text-decoration: none; font-weight: bold; display: inline-block; margin-top: 15px; border: none; cursor: pointer; width: 85%; max-width: 280px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
 
         /* Таймер */
         .timer { display: flex; gap: 10px; margin: 20px 0; }
-        .time-box { background: var(--gold); color: #000; padding: 10px; border-radius: 5px; min-width: 60px; }
-        .time-box span { display: block; font-size: 22px; font-weight: bold; }
+        .time-box { background: var(--gold); color: #000; padding: 8px; border-radius: 5px; min-width: 55px; }
+        .time-box span { display: block; font-size: 20px; font-weight: bold; }
+        .time-box small { font-size: 10px; text-transform: uppercase; }
 
-        .rsvp-menu { display: flex; flex-direction: column; align-items: center; gap: 10px; width: 100%; }
+        .rsvp-menu { display: flex; flex-direction: column; align-items: center; gap: 10px; width: 100%; margin-top: 20px; }
     </style>
 </head>
 <body>
@@ -57,7 +57,7 @@
             <button onclick="changeLang('kz')">ҚАЗ</button>
             <button onclick="changeLang('ru')">РУС</button>
         </div>
-        <button class="music-btn" onclick="toggleMusic()">♪ Музыка</button>
+        <button class="music-btn" onclick="toggleMusic()">♪ <span id="m-btn-text">Музыка</span></button>
     </div>
 
     <section id="hero">
@@ -67,45 +67,45 @@
             <h1 id="h-age">50 ЖАС</h1>
         </div>
         <div class="arrow" onclick="document.getElementById('details').scrollIntoView();">
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 13l5 5 5-5M7 6l5 5 5-5"/></svg>
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="2"><path d="M7 13l5 5 5-5M7 6l5 5 5-5"/></svg>
         </div>
     </section>
 
     <section id="details">
-        <img src="https://img.freepik.com/free-vector/flat-kazakh-ornament-collection_23-2149435422.jpg" class="ornament" style="height:60px; object-fit:contain;">
-        <h2 id="m-invite">ҚҰРМЕТТІ ҚОНАҚТАР!</h2>
-        <p id="m-text" style="padding: 0 20px; font-size: 18px; line-height: 1.6;">Сіздерді Талғаттың мерейтойына арналған салтанатты дастарханымыздың қадірлі қонағы болуға шақырамыз!</p>
-        <img src="https://img.freepik.com/free-vector/flat-kazakh-ornament-collection_23-2149435422.jpg" class="ornament" style="height:60px; object-fit:contain; transform: rotate(180deg);">
+        <div style="font-size: 40px; color: var(--gold);">◈❈◈</div>
+        <h2 id="m-invite" style="letter-spacing: 2px;">ҚҰРМЕТТІ ҚОНАҚТАР!</h2>
+        <p id="m-text" style="padding: 0 25px; font-size: 19px; line-height: 1.6; max-width: 400px;">Сіздерді Талғаттың мерейтойына арналған салтанатты дастарханымыздың қадірлі қонағы болуға шақырамыз!</p>
+        <div style="font-size: 40px; color: var(--gold); transform: rotate(180deg);">◈❈◈</div>
     </section>
 
     <section id="info">
-        <h2 id="m-when">ҚАШАН ЖӘНЕ ҚАЙДА?</h2>
+        <h2 id="m-when" style="color: var(--gold);">ҚАШАН ЖӘНЕ ҚАЙДА?</h2>
         
         <div class="calendar">
             <div class="calendar-header" id="m-month">МАУСЫМ 2026</div>
-            <table style="width: 100%; text-align: center; border-collapse: collapse;">
-                <tr id="m-days-row" style="font-size: 12px; color: #888;"><td>Дс</td><td>Сс</td><td>Ср</td><td>Бс</td><td>Жм</td><td>Сб</td><td style="color:red">Жс</td></tr>
+            <table style="width: 100%; text-align: center; font-size: 14px;">
+                <tr id="m-days-row" style="color: #888; font-size: 12px;"><td>Дс</td><td>Сс</td><td>Ср</td><td>Бс</td><td>Жм</td><td>Сб</td><td style="color:red">Жс</td></tr>
                 <tr><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td style="color:red">7</td></tr>
-                <tr><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td><td>13</td><td class="highlight">14</td></tr>
+                <tr><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td><td>13</td><td><span class="highlight">14</span></td></tr>
             </table>
         </div>
         
-        <p id="m-time" style="font-size: 20px; font-weight: bold;">Уақыты: 16:00</p>
-        <p id="m-addr"><b>"Хан Талапай" мейрамханасы</b><br>Астана қ., Қорғалжын тас жолы, 20</p>
+        <p id="m-time" style="font-size: 22px; font-weight: bold; margin: 10px 0;">Уақыты: 16:00</p>
+        <p id="m-addr" style="line-height: 1.5;"><b>"Хан Талапай" мейрамханасы</b><br>Астана қ., Қорғалжын тас жолы, 20</p>
         <a href="https://2gis.kz/astana/search/Хан Талапай" target="_blank" class="btn-gold">2GIS КАРТА</a>
 
-        <div id="t-title" style="margin-top:40px; color:var(--gold); font-weight: bold;">ТОЙҒА ДЕЙІН ҚАЛДЫ:</div>
+        <div id="t-title" style="margin-top:40px; color:var(--gold); font-weight: bold; font-size: 14px;">ТОЙҒА ДЕЙІН ҚАЛДЫ:</div>
         <div class="timer">
             <div class="time-box"><span id="days">00</span><small id="l-d">күн</small></div>
             <div class="time-box"><span id="hours">00</span><small id="l-h">сағат</small></div>
             <div class="time-box"><span id="mins">00</span><small id="l-m">мин</small></div>
         </div>
 
-        <h3 id="m-rsvp" style="margin-top:40px;">ЖАУАБЫҢЫЗДЫ КҮТЕМІЗ:</h3>
+        <h3 id="m-rsvp" style="margin-top:30px; font-size: 16px;">ЖАУАБЫҢЫЗДЫ КҮТЕМІЗ:</h3>
         <div class="rsvp-menu">
             <button class="btn-gold" id="btn-1" onclick="sendWA('Приду / Келемін')">Келемін</button>
             <button class="btn-gold" id="btn-2" onclick="sendWA('Буду с супругой(ом) / Жұбайыммен келемін')">Жұбайыммен келемін</button>
-            <button class="btn-gold" id="btn-3" style="background:#555; color:#fff;" onclick="sendWA('Не смогу прийти / Келе алмаймын')">Келе алмаймын</button>
+            <button class="btn-gold" id="btn-3" style="background:#444; color:#fff;" onclick="sendWA('Не смогу прийти / Келе алмаймын')">Келе алмаймын</button>
         </div>
     </section>
 
