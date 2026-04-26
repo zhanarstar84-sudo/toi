@@ -7,54 +7,40 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Comfortaa:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root { --gold: #d4af37; --dark: #1a1a1a; --cream: #fdf5e6; }
-        
-        /* Основной шрифт - Comfortaa */
         body, html { margin: 0; padding: 0; background: var(--dark); color: #fff; font-family: 'Comfortaa', sans-serif; scroll-behavior: smooth; overflow-x: hidden; font-size: 17px; }
-        
         section { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; padding: 40px 20px; box-sizing: border-box; text-align: center; }
 
-        /* ЭКРАН 1: ФОТО (Исправленный, текст убран) */
-        #hero { 
-            background: #000 url('main.jpg') no-repeat center center; 
-            background-size: cover; 
-            display: flex;
-            align-items: flex-end; 
-            padding-bottom: 80px; 
-        }
-        .overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.1); /* Легкое затемнение */ }
+        /* ЭКРАН 1: ФОТО БЕЗ ТЕКСТА */
+        #hero { background: #000 url('main.jpg') no-repeat center center; background-size: cover; display: flex; align-items: flex-end; padding-bottom: 80px; }
+        .overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.1); }
         
-        /* Текстовый блок на первом экране полностью удален, чтобы не закрывать лицо */
-
-        /* НАВИГАЦИОННЫЕ СТРЕЛОЧКИ */
         .arrow-container { position: absolute; bottom: 25px; left: 50%; transform: translateX(-50%); z-index: 10; cursor: pointer; display: flex; align-items: center; justify-content: center; animation: bounce 2s infinite; filter: drop-shadow(0 2px 5px rgba(0,0,0,0.5)); }
         .arrow-container svg { width: 35px; height: 35px; }
-        
-        @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0) translateX(-50%);} 40% {transform: translateY(-10px) translateX(-50%);} 60% {transform: translateY(-5px) translateX(-50%);} }
+        @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0) translateX(-50%);} 40% {transform: translateY(-10px) translateX(-50%);} }
 
         .controls { position: fixed; top: 20px; width: 100%; display: flex; justify-content: space-between; padding: 0 20px; box-sizing: border-box; z-index: 100; }
-        .lang-btns button, .music-btn { background: rgba(0,0,0,0.6); border: 1px solid var(--gold); color: #fff; padding: 8px 12px; cursor: pointer; border-radius: 5px; font-family: 'Comfortaa', sans-serif; font-size: 12px; }
+        .lang-btns button, .music-btn { background: rgba(0,0,0,0.6); border: 1px solid var(--gold); color: #fff; padding: 8px 12px; cursor: pointer; border-radius: 5px; font-family: 'Comfortaa'; font-size: 12px; }
 
         /* ЭКРАН 2: ПРИГЛАШЕНИЕ */
         #details { background: var(--cream); color: #333; }
-        #details h2 { font-family: 'Playfair Display', serif; font-size: 2.8rem; color: #8e6f3e; margin: 0 0 20px 0; font-weight: bold; }
+        #details h2 { font-family: 'Playfair Display', serif; font-size: 2.5rem; color: #8e6f3e; margin: 0 0 20px 0; }
         .ornament { font-size: 30px; color: var(--gold); margin: 15px 0; }
-        #m-text { padding: 0 25px; font-size: 20px; line-height: 1.7; max-width: 500px; margin: 0 auto; }
+        #m-text { padding: 0 25px; font-size: 19px; line-height: 1.6; max-width: 500px; margin: 0 auto; }
 
         /* ЭКРАН 3: ИНФО */
-        #info h2 { font-family: 'Playfair Display', serif; font-size: 2.8rem; color: var(--gold); margin: 0 0 20px 0; font-weight: bold; }
-        .calendar { border: 2px solid var(--gold); padding: 15px; border-radius: 12px; background: #fff; color: #000; margin: 20px auto; width: 300px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); font-family: 'Comfortaa', sans-serif; font-weight: bold; }
-        .calendar-header { font-weight: bold; border-bottom: 1px solid #ddd; color: var(--gold); font-size: 1.2rem; }
-        .highlight { background: var(--gold); color: #fff; border-radius: 50%; width: 30px; height: 30px; display: inline-flex; align-items: center; justify-content: center; font-weight: bold; }
+        #info h2 { font-family: 'Playfair Display', serif; font-size: 2.5rem; color: var(--gold); margin-bottom: 20px; }
+        .calendar { border: 2px solid var(--gold); padding: 15px; border-radius: 12px; background: #fff; color: #000; margin: 20px auto; width: 280px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+        .calendar-header { font-weight: bold; border-bottom: 1px solid #ddd; color: var(--gold); margin-bottom: 5px; }
+        .highlight { background: var(--gold); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: inline-flex; align-items: center; justify-content: center; }
         
-        .btn-gold { background: linear-gradient(45deg, #d4af37, #f9f0b5); color: #000; padding: 18px 25px; border-radius: 35px; text-decoration: none; font-weight: bold; display: inline-block; margin-top: 20px; width: 90%; max-width: 300px; font-size: 17px; border:none; cursor: pointer; font-family: 'Comfortaa', sans-serif; }
+        .btn-gold { background: linear-gradient(45deg, #d4af37, #f9f0b5); color: #000; padding: 16px 20px; border-radius: 35px; text-decoration: none; font-weight: bold; display: inline-block; margin-top: 15px; width: 85%; max-width: 300px; border:none; cursor: pointer; font-family: 'Comfortaa'; }
         
-        .timer { display: flex; justify-content: center; gap: 15px; margin: 25px 0; }
-        .time-box { background: var(--gold); color: #000; padding: 10px; border-radius: 8px; min-width: 65px; box-shadow: 0 3px 8px rgba(0,0,0,0.3); }
-        .time-box span { display: block; font-size: 22px; font-weight: bold; font-family: 'Comfortaa', sans-serif; }
+        .timer { display: flex; justify-content: center; gap: 10px; margin: 20px 0; }
+        .time-box { background: var(--gold); color: #000; padding: 8px; border-radius: 8px; min-width: 60px; }
+        .time-box span { display: block; font-size: 20px; font-weight: bold; }
+        .time-box small { font-size: 11px; font-weight: bold; }
 
-        /* ИСПРАВЛЕННЫЙ ОПРОС: Три варианта */
-        .rsvp-menu { display: flex; flex-direction: column; align-items: center; gap: 12px; width: 100%; margin-top: 25px; }
-        #m-rsvp { font-size: 1.4rem; margin-top: 40px; color: #f9f0b5; font-weight: bold; }
+        .rsvp-menu { display: flex; flex-direction: column; align-items: center; gap: 10px; width: 100%; margin-top: 20px; }
     </style>
 </head>
 <body>
@@ -77,65 +63,93 @@
     <section id="details">
         <div class="ornament">◈❈◈</div>
         <h2 id="m-invite">Құрметті қонақтар!</h2>
-        <p id="m-text"> Сіздерді Талғаттың мерейтойына арналған салтанатты дастарханымыздың қадірлі конағы болуға шақырамыз!</p>
+        <p id="m-text">Сіздерді Талғаттың мерейтойына арналған салтанатты дастарханымыздың қадірлі конағы болуға шақырамыз!</p>
         <div class="ornament" style="transform: rotate(180deg);">◈❈◈</div>
         <div class="arrow-container" onclick="document.getElementById('info').scrollIntoView();">
             <svg viewBox="0 0 24 24" fill="none" stroke="#8e6f3e" stroke-width="2.5"><path d="M7 13l5 5 5-5M7 6l5 5 5-5"/></svg>
         </div>
     </section>
 
-    <section id="info" style="padding-bottom: 100px;">
-        <h2 id="m-when" style="color: var(--gold);">Қашан және қайда?</h2>
+    <section id="info" style="padding-bottom: 80px;">
+        <h2 id="m-when">Қашан және қайда?</h2>
         <div class="calendar">
             <div class="calendar-header" id="m-month">МАУСЫМ 2026</div>
-            <table style="width: 100%; text-align: center; margin-top: 5px;">
-                <tr id="m-days-row" style="color: #888; font-size: 12px;"><td>Дс</td><td>Сс</td><td>Ср</td><td>Бс</td><td>Жм</td><td>Сб</td><td style="color:red">Жс</td></tr>
+            <table style="width: 100%; text-align: center;">
+                <tr id="m-days-row" style="color: #888; font-size: 11px;"><td>Дс</td><td>Сс</td><td>Ср</td><td>Бс</td><td>Жм</td><td>Сб</td><td style="color:red">Жс</td></tr>
                 <tr><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td style="color:red">7</td></tr>
                 <tr><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td><td>13</td><td><span class="highlight">14</span></td></tr>
             </table>
         </div>
+        <p id="m-time" style="font-weight:bold; font-size: 20px;">Уақыты: 16:00</p>
         <p id="m-addr"><b>"Хан Талапай" мейрамханасы</b><br>Астана қ., Қорғалжын тас жолы, 20</p>
-        <a href="https://2gis.kz/astana/search/Хан Талапай" target="_blank" class="btn-gold">2GIS КАРТА</a>
+        <a href="https://2gis.kz/astana/search/Хан Талапай" target="_blank" class="btn-gold" id="btn-map">2GIS КАРТА</a>
+
+        <div id="t-title" style="margin-top:40px; color:var(--gold); font-weight: bold; font-size: 14px;">ТОЙҒА ДЕЙІН ҚАЛДЫ:</div>
         <div class="timer">
-            <div class="time-box"><span id="days">00</span><small>күн</small></div>
-            <div class="time-box"><span id="hours">00</span><small>сағат</small></div>
-            <div class="time-box"><span id="mins">00</span><small>мин</small></div>
+            <div class="time-box"><span id="days">00</span><small id="l-d">күн</small></div>
+            <div class="time-box"><span id="hours">00</span><small id="l-h">сағат</small></div>
+            <div class="time-box"><span id="mins">00</span><small id="l-m">мин</small></div>
         </div>
 
         <h3 id="m-rsvp">Жауабыңызды күтеміз:</h3>
         <div class="rsvp-menu">
-            <button class="btn-gold" id="btn-1" onclick="sendWA('Приду / Келемін')">Келемін</button>
-            <button class="btn-gold" id="btn-2" onclick="sendWA('Буду с супругой(ом) / Жұбайыммен келемін')">Жұбайыммен келемін</button>
-            <button class="btn-gold" id="btn-3" style="background:#444; color:#fff;" onclick="sendWA('Не смогу прийти / Келе алмаймын')">Келе алмаймын</button>
-        </div>
-        
-        <div class="arrow-container" style="transform: rotate(180deg) translateX(50%); bottom: 15px;" onclick="document.getElementById('hero').scrollIntoView();">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="2.5"><path d="M7 13l5 5 5-5M7 6l5 5 5-5"/></svg>
+            <button class="btn-gold" id="btn-1" onclick="sendWA('Приду с удовольствием / Келемін')">Келемін</button>
+            <button class="btn-gold" id="btn-2" onclick="sendWA('Приду с супругой(ом) / Жұбайыммен келемін')">Жұбайыммен келемін</button>
+            <button class="btn-gold" id="btn-3" style="background:#444; color:#fff;" onclick="sendWA('К сожалению, не смогу / Келе алмаймын')">Келе алмаймын</button>
         </div>
     </section>
 
     <audio id="bgMusic" loop><source src="music.mp3" type="audio/mpeg"></audio>
+
     <script>
         const music = document.getElementById('bgMusic');
         function toggleMusic() { music.paused ? music.play() : music.pause(); }
+
         function sendWA(ans) {
-            const phone = "77081489816"; 
-            window.location.href = `https://wa.me/${phone}?text=${encodeURIComponent("Сәлеметсіз бе! Жауабым: " + ans)}`;
+            window.location.href = `https://wa.me/77081489816?text=${encodeURIComponent("Здравствуйте! Мой ответ: " + ans)}`;
         }
+
         function changeLang(l) {
             const t = {
-                ru: { invite: "ДОРОГИЕ ГОСТИ!", text: "Приглашаем вас на торжественный вечер в честь 50-летия Талгата!", when: "КОГДА И ГДЕ?", month: "ИЮНЬ 2026", rsvp: "ЖДЕМ ВАШЕГО ОТВЕТА:", b1: "Приду", b2: "Приду с супругой(-ом)", b3: "Не смогу" },
-                kz: { invite: "ҚҰРМЕТТІ ҚОНАҚТАР!", text: "Сіздерді Талғаттың мерейтойына арналған салтанатты дастарханымыздың қадірлі конағы болуға шақырамыз!", when: "ҚАШАН ЖӘНЕ ҚАЙДА?", month: "МАУСЫМ 2026", rsvp: "ЖАУАБЫҢЫЗДЫ КҮТЕМІЗ:", b1: "Келемін", b2: "Жұбайыммен келемін", b3: "Келе алмаймын" }
+                ru: { 
+                    invite: "Дорогие гости!", 
+                    text: "Приглашаем вас стать почетными гостями торжественного вечера, посвященного 50-летию нашего дорогого Талгата!", 
+                    when: "Когда и где?", month: "ИЮНЬ 2026", time: "Время: 16:00",
+                    addr: "<b>Ресторан 'Хан Талапай'</b><br>г. Астана, шоссе Коргалжын, 20",
+                    map: "КАРТА 2GIS", timer: "ДО ТОЯ ОСТАЛОСЬ:", rsvp: "Ждем вашего ответа:",
+                    d: "дн", h: "час", m: "мин", 
+                    b1: "С удовольствием приду", b2: "Приду с супругой(ом)", b3: "К сожалению, не смогу",
+                    daysRow: "<td>Пн</td><td>Вт</td><td>Ср</td><td>Чт</td><td>Пт</td><td>Сб</td><td style='color:red'>Вс</td>"
+                },
+                kz: { 
+                    invite: "Құрметті қонақтар!", 
+                    text: "Сіздерді Талғаттың мерейтойына арналған салтанатты дастарханымыздың қадірлі конағы болуға шақырамыз!", 
+                    when: "Қашан және қайда?", month: "МАУСЫМ 2026", time: "Уақыты: 16:00",
+                    addr: "<b>'Хан Талапай' мейрамханасы</b><br>Астана қ., Қорғалжын тас жолы, 20",
+                    map: "2GIS КАРТА", timer: "ТОЙҒА ДЕЙІН ҚАЛДЫ:", rsvp: "Жауабыңызды күтеміз:",
+                    d: "күн", h: "сағат", m: "мин",
+                    b1: "Келемін", b2: "Жұбайыммен келемін", b3: "Келе алмаймын",
+                    daysRow: "<td>Дс</td><td>Сс</td><td>Ср</td><td>Бс</td><td>Жм</td><td>Сб</td><td style='color:red'>Жс</td>"
+                }
             };
             document.getElementById('m-invite').innerText = t[l].invite;
             document.getElementById('m-text').innerText = t[l].text;
             document.getElementById('m-when').innerText = t[l].when;
             document.getElementById('m-month').innerText = t[l].month;
+            document.getElementById('m-time').innerText = t[l].time;
+            document.getElementById('m-addr').innerHTML = t[l].addr;
+            document.getElementById('btn-map').innerText = t[l].map;
+            document.getElementById('t-title').innerText = t[l].timer;
             document.getElementById('m-rsvp').innerText = t[l].rsvp;
+            document.getElementById('l-d').innerText = t[l].d;
+            document.getElementById('l-h').innerText = t[l].h;
+            document.getElementById('l-m').innerText = t[l].m;
             document.getElementById('btn-1').innerText = t[l].b1;
             document.getElementById('btn-2').innerText = t[l].b2;
             document.getElementById('btn-3').innerText = t[l].b3;
+            document.getElementById('m-days-row').innerHTML = t[l].daysRow;
         }
+
         const eventDate = new Date("June 14, 2026 16:00:00").getTime();
         setInterval(() => {
             const now = new Date().getTime();
