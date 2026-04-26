@@ -7,65 +7,64 @@
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@600&family=Comfortaa:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root { --gold: #d4af37; --dark: #1a1a1a; --cream: #fdf5e6; }
-        body, html { margin: 0; padding: 0; background: var(--dark); color: #fff; font-family: 'Comfortaa', sans-serif; scroll-behavior: smooth; overflow-x: hidden; }
         
-        section { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; padding: 20px; box-sizing: border-box; text-align: center; }
+        /* Основной шрифт для всего сайта - Comfortaa */
+        body, html { margin: 0; padding: 0; background: var(--dark); color: #fff; font-family: 'Comfortaa', sans-serif; scroll-behavior: smooth; overflow-x: hidden; font-size: 17px; }
+        
+        section { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; padding: 40px 20px; box-sizing: border-box; text-align: center; }
 
         /* ЭКРАН 1: ФОТО */
         #hero { 
             background: #000 url('main.jpg') no-repeat center center; 
             background-size: cover; 
             display: flex;
-            align-items: flex-end; /* Текст строго внизу */
-            padding-bottom: 100px; /* Место для стрелочки */
+            align-items: flex-end; /* Текст прижат к низу страницы */
+            padding-bottom: 110px; /* Увеличили отступ снизу */
         }
-        .overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.15); }
+        .overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.15); /* Чуть уменьшили затемнение */ }
         
-        /* Контейнер для текста в самом низу */
+        /* Блок с текстом опущен максимально низко, в район пояса */
         .hero-content { 
             z-index: 2; 
             width: 100%; 
-            background: rgba(0,0,0,0.4); /* Затемнение только под текстом для читаемости */
-            padding: 15px 0;
-            backdrop-filter: blur(2px);
+            background: rgba(0,0,0,0.3); /* Полупрозрачная подложка под текстом для читаемости */
+            padding: 10px 0;
         }
         
-        .hero-content h1 { font-family: 'Oswald', sans-serif; font-size: 3rem; color: var(--gold); margin: 0; line-height: 1; letter-spacing: 2px; }
-        #h-age { display: block; font-size: 1.6rem; font-weight: bold; color: #f9f0b5; margin-top: 5px; }
+        /* Имя - стильный, четкий Oswald, поменьше размером */
+        .hero-content h1 { font-family: 'Oswald', sans-serif; font-size: 2.8rem; color: var(--gold); text-shadow: 2px 2px 10px #000; margin: 0; line-height: 1; font-weight: normal; letter-spacing: 2px; text-transform: uppercase; }
+        
+        /* Возраст - аккуратный Comfortaa */
+        #h-age { display: block; font-family: 'Comfortaa', sans-serif; font-size: 1.5rem; font-weight: bold; color: #f9f0b5; margin-top: 5px; text-shadow: 1px 1px 5px #000; }
 
-        /* СТРЕЛКИ НАВИГАЦИИ */
-        .scroll-arrow { 
-            position: absolute; 
-            bottom: 25px; 
-            left: 50%; 
-            transform: translateX(-50%); 
-            z-index: 10; 
-            cursor: pointer; 
-            animation: bounce 2s infinite;
-        }
-        .scroll-arrow svg { width: 35px; height: 35px; filter: drop-shadow(0 2px 5px rgba(0,0,0,0.5)); }
+        /* НАВИГАЦИОННЫЕ СТРЕЛОЧКИ */
+        .arrow-container { position: absolute; bottom: 25px; left: 50%; transform: translateX(-50%); z-index: 10; cursor: pointer; display: flex; align-items: center; justify-content: center; animation: bounce 2s infinite; filter: drop-shadow(0 2px 5px rgba(0,0,0,0.5)); }
+        .arrow-container svg { width: 35px; height: 35px; }
         
-        @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0) translateX(-50%);} 40% {transform: translateY(-10px) translateX(-50%);} }
+        @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0) translateX(-50%);} 40% {transform: translateY(-10px) translateX(-50%);} 60% {transform: translateY(-5px) translateX(-50%);} }
 
         .controls { position: fixed; top: 20px; width: 100%; display: flex; justify-content: space-between; padding: 0 20px; box-sizing: border-box; z-index: 100; }
         .lang-btns button, .music-btn { background: rgba(0,0,0,0.6); border: 1px solid var(--gold); color: #fff; padding: 8px 12px; cursor: pointer; border-radius: 5px; font-family: 'Comfortaa', sans-serif; font-size: 12px; }
 
-        /* ЭКРАН 2: ПРИГЛАШЕНИЕ */
+        /* ЭКРАН 2: ТЕКСТ */
         #details { background: var(--cream); color: #333; }
-        #details h2 { font-family: 'Oswald', sans-serif; font-size: 2.2rem; color: #8e6f3e; margin-bottom: 20px; }
-        .ornament { font-size: 30px; color: var(--gold); margin: 10px 0; }
-        #m-text { padding: 0 25px; font-size: 19px; line-height: 1.6; max-width: 500px; }
+        #details h2 { font-family: 'Oswald', sans-serif; font-size: 2.5rem; color: #8e6f3e; margin: 0 0 20px 0; font-weight: normal; letter-spacing: 1px; text-transform: uppercase; }
+        .ornament-divider { font-size: 30px; color: var(--gold); margin: 10px 0; }
+        #m-text { padding: 0 25px; font-size: 19px; line-height: 1.6; max-width: 500px; margin: 0 auto; font-family: 'Comfortaa', sans-serif; }
 
         /* ЭКРАН 3: ИНФО */
-        .calendar { border: 2px solid var(--gold); padding: 15px; border-radius: 12px; background: #fff; color: #000; margin: 20px auto; width: 290px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
-        .calendar-header { border-bottom: 1px solid #ddd; color: var(--gold); font-weight: bold; padding-bottom: 5px; margin-bottom: 5px; }
+        #info h2 { font-family: 'Oswald', sans-serif; font-size: 2.5rem; color: var(--gold); margin: 0 0 20px 0; font-weight: normal; letter-spacing: 1px; text-transform: uppercase; }
+        .calendar { border: 2px solid var(--gold); padding: 15px; border-radius: 12px; background: #fff; color: #000; margin: 20px auto; width: 290px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); font-family: 'Comfortaa', sans-serif; font-weight: bold; }
+        .calendar-header { font-weight: bold; border-bottom: 1px solid #ddd; color: var(--gold); font-size: 1.2rem; }
         .highlight { background: var(--gold); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: inline-flex; align-items: center; justify-content: center; font-weight: bold; }
         
-        .btn-gold { background: linear-gradient(45deg, #d4af37, #f9f0b5); color: #000; padding: 16px 20px; border-radius: 30px; text-decoration: none; font-weight: bold; display: inline-block; margin-top: 15px; width: 85%; max-width: 300px; border: none; font-size: 16px; cursor: pointer; }
+        .btn-gold { background: linear-gradient(45deg, #d4af37, #f9f0b5); color: #000; padding: 16px 20px; border-radius: 30px; text-decoration: none; font-weight: bold; display: inline-block; margin-top: 15px; width: 85%; max-width: 300px; font-size: 16px; border:none; cursor: pointer; font-family: 'Comfortaa', sans-serif; }
         
         .timer { display: flex; justify-content: center; gap: 10px; margin: 25px 0; }
-        .time-box { background: var(--gold); color: #000; padding: 10px; border-radius: 8px; min-width: 65px; }
-        .time-box span { display: block; font-size: 22px; font-weight: bold; }
+        .time-box { background: var(--gold); color: #000; padding: 10px; border-radius: 8px; min-width: 65px; box-shadow: 0 3px 8px rgba(0,0,0,0.3); }
+        .time-box span { display: block; font-size: 22px; font-weight: bold; font-family: 'Comfortaa', sans-serif; }
+
+        .rsvp-menu { display: flex; flex-direction: column; align-items: center; gap: 10px; width: 100%; margin-top: 25px; }
     </style>
 </head>
 <body>
@@ -84,34 +83,35 @@
             <h1 id="h-name">ТАЛҒАТ</h1>
             <span id="h-age">50 ЖАС</span>
         </div>
-        <div class="scroll-arrow" onclick="document.getElementById('details').scrollIntoView();">
+        <div class="arrow-container" onclick="document.getElementById('details').scrollIntoView();">
             <svg viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M7 13l5 5 5-5M7 6l5 5 5-5"/></svg>
         </div>
     </section>
 
     <section id="details">
-        <div class="ornament">◈❈◈</div>
-        <h2 id="m-invite">ҚҰРМЕТТІ ҚОНАҚТАР!</h2>
+        <div class="ornament-divider">◈❈◈</div>
+        <h2 id="m-invite">Құрметті қонақтар!</h2>
         <p id="m-text">Сіздерді Талғаттың мерейтойына арналған салтанатты дастарханымыздың қадірлі қонағы болуға шақырамыз!</p>
-        <div class="ornament" style="transform: rotate(180deg);">◈❈◈</div>
-        <div class="scroll-arrow" onclick="document.getElementById('info').scrollIntoView();">
+        <div class="ornament-divider" style="transform: rotate(180deg);">◈❈◈</div>
+        <div class="arrow-container" onclick="document.getElementById('info').scrollIntoView();">
             <svg viewBox="0 0 24 24" fill="none" stroke="#8e6f3e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M7 13l5 5 5-5M7 6l5 5 5-5"/></svg>
         </div>
     </section>
 
-    <section id="info" style="padding-bottom: 80px;">
-        <h2 id="m-when" style="color: var(--gold); font-family: 'Oswald';">ҚАШАН ЖӘНЕ ҚАЙДА?</h2>
+    <section id="info" style="padding-bottom: 100px;">
+        <h2 id="m-when" style="color: var(--gold); font-family: 'Oswald';">Қашан және қайда?</h2>
         
         <div class="calendar">
             <div class="calendar-header" id="m-month">МАУСЫМ 2026</div>
             <table style="width: 100%; text-align: center;">
-                <tr id="m-days" style="color: #888; font-size: 12px;"><td>Дс</td><td>Сс</td><td>Ср</td><td>Бс</td><td>Жм</td><td>Сб</td><td style="color:red">Жс</td></tr>
+                <tr id="m-days-row" style="color: #888; font-size: 12px;"><td>Дс</td><td>Сс</td><td>Ср</td><td>Бс</td><td>Жм</td><td>Сб</td><td style="color:red">Жс</td></tr>
                 <tr><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td style="color:red">7</td></tr>
                 <tr><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td><td>13</td><td><span class="highlight">14</span></td></tr>
             </table>
         </div>
         
-        <p id="m-addr"><b>"Хан Талапай" мейрамханасы</b><br>Астана қ., Қорғалжын тас жолы, 20</p>
+        <p id="m-time" style="font-size: 22px; font-weight: bold;">Уақыты: 16:00</p>
+        <p id="m-addr" style="font-size: 18px; padding: 0 10px;"><b>"Хан Талапай" мейрамханасы</b><br>Астана қ., Қорғалжын тас жолы, 20</p>
         <a href="https://2gis.kz/astana/search/Хан Талапай" target="_blank" class="btn-gold">2GIS КАРТА</a>
 
         <div class="timer">
@@ -120,10 +120,10 @@
             <div class="time-box"><span id="mins">00</span><small>мин</small></div>
         </div>
 
-        <button class="btn-gold" onclick="sendWA('Келемін')">Келемін</button>
-        <button class="btn-gold" style="background: #444; color: #fff; margin-top: 10px;" onclick="sendWA('Келе алмаймын')">Келе алмаймын</button>
-
-        <div class="scroll-arrow" style="transform: rotate(180deg) translateX(50%); bottom: 15px;" onclick="document.getElementById('hero').scrollIntoView();">
+        <button class="btn-gold" onclick="sendWA('Приду / Келемін')">Келемін</button>
+        <button class="btn-gold" style="background:#444; color:#fff; margin-top: 10px;" onclick="sendWA('Не смогу прийти / Келе алмаймын')">Келе алмаймын</button>
+        
+        <div class="arrow-container" style="transform: rotate(180deg) translateX(50%); bottom: 15px;" onclick="document.getElementById('hero').scrollIntoView();">
             <svg viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M7 13l5 5 5-5M7 6l5 5 5-5"/></svg>
         </div>
     </section>
@@ -136,13 +136,21 @@
 
         function sendWA(ans) {
             const phone = "77081489816"; 
-            window.location.href = `https://wa.me/${phone}?text=${encodeURIComponent("Жауабым: " + ans)}`;
+            window.location.href = `https://wa.me/${phone}?text=${encodeURIComponent("Сәлеметсіз бе! Жауабым: " + ans)}`;
         }
 
         function changeLang(l) {
             const t = {
-                ru: { name: "ТАЛГАТ", age: "50 ЛЕТ", invite: "ДОРОГИЕ ГОСТИ!", text: "Приглашаем вас на торжество в честь 50-летия Талгата!", when: "КОГДА И ГДЕ?", month: "ИЮНЬ 2026" },
-                kz: { name: "ТАЛҒАТ", age: "50 ЖАС", invite: "ҚҰРМЕТТІ ҚОНАҚТАР!", text: "Сіздерді Талғаттың мерейтойына арналған салтанатты дастарханымызға шақырамыз!", when: "ҚАШАН ЖӘНЕ ҚАЙДА?", month: "МАУСЫМ 2026" }
+                ru: { 
+                    name: "ТАЛГАТ", age: "50 ЛЕТ", invite: "ДОРОГИЕ ГОСТИ!", 
+                    text: "Приглашаем вас стать почетными гостями торжественного вечера, посвященного 50-летию Талгата!", 
+                    when: "КОГДА И ГДЕ?", month: "ИЮНЬ 2026"
+                },
+                kz: { 
+                    name: "ТАЛҒАТ", age: "50 ЖАС", invite: "ҚҰРМЕТТІ ҚОНАҚТАР!", 
+                    text: "Сіздерді Талғаттың мерейтойына арналған салтанатты дастарханымыздың қадірлі қонағы болуға шақырамыз!", 
+                    when: "ҚАШАН ЖӘНЕ ҚАЙДА?", month: "МАУСЫМ 2026"
+                }
             };
             document.getElementById('h-name').innerText = t[l].name;
             document.getElementById('h-age').innerText = t[l].age;
